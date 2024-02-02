@@ -1,4 +1,11 @@
 #include "ot_receive.h"
+#include <string.h>
+
+void udpGetPayload(const otMessage *aMessage, char *buffer) {
+  uint16_t payloadStart = otMessageGetOffset(aMessage) - UDP_PAYLOAD_SIZE;
+  otMessageRead(aMessage, payloadStart, buffer, UDP_PAYLOAD_SIZE);
+  return;
+}
 
 /**
  * Only handle messages sent by the `ot-send` UDP sender, which broadcast
@@ -8,13 +15,14 @@ bool udpReceiveCallback(void *aContext,
                         const otMessage *aMessage,
                         const otMessageInfo *aMessageInfo)
 {
-  otIp6Address *ipPeer = &(aMessageInfo->mPeerAddr);
-  char *ipPeerString = calloc(1, OT_IP6_SOCK_ADDR_STRING_SIZE);
-  otIp6AddressToString(ipPeer, ipPeerString, OT_IP6_SOCK_ADDR_STRING_SIZE);
-
   uint16_t peerPort = aMessageInfo->mPeerPort;
+  uint16_t sockPort = aMessageInfo->mSockPort;
 
-  if (ipPeer == MLEID_MULTICAST) && (peerPort == UDP_DEST_PORT) {
+  if ((peerPort == UDP_DEST_PORT) && (sockPort == UDP_SOCK_PORT)) {
+    char* payload = calloc(1, UDP_PAYLOAD_SIZE);
+    udpGetPayload((const otMessage *) aMessage, payload);
+
+    DEBUG_PRINT(otLogNotePlat("Recevied UDP Packet: \"%s\"", payload));
     return true;
   }
   return false;
