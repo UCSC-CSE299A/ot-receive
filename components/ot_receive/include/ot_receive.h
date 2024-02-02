@@ -46,10 +46,16 @@
 #define UDP_SOCK_PORT 12345
 #define UDP_DEST_PORT 12345
 
+otError handleError(otError error);
+void handleMessageError(otMessage *aMessage, otError error);
+
 void ot_task_worker(void *aContext);
 
-void udpBindSocket(otUdpSocket *aSocket, otSockAddr *aSockName);
+void udpReceiveInit(otInstance *aInstance, uint16_t port, uint16_t destPort);
 
+otUdpSocket *udpCreateSocket(otInstance *aInstance,
+                             uint16_t port,
+                             otSockAddr *aSockName);
 void udpSendInfinite(otInstance *aInstance, uint16_t port, uint16_t destPort);
 
 void checkConnection(otInstance *aInstance);
