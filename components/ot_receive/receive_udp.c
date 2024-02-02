@@ -12,4 +12,3 @@ void udpCreateReceiver(otInstance *aInstance) {
   receiver->mHandler = udpReceiveCallback;
   handleError(otUdpAddReceiver(aInstance, receiver));
 }
-
