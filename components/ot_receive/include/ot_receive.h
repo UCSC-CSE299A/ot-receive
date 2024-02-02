@@ -1,5 +1,5 @@
-#ifndef OT_SEND_
-#define OT_SEND_
+#ifndef OT_RECEIVE_
+#define OT_RECEIVE_
 
 #include "esp_ot_config.h"
 #include <openthread/logging.h>
@@ -52,4 +52,4 @@ void udpSendInfinite(otInstance *aInstance, uint16_t port, uint16_t destPort);
 
 void checkConnection(otInstance *aInstance);
 
-#endif // ESP_OT_SEND_
+#endif // OT_RECEIVE_
