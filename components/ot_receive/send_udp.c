@@ -1,13 +1,10 @@
 #include <stdio.h>
 
 #include "ot_receive.h"
-#include "common.c"
 
 #define MAX_CHARS 22
 
-otUdpSocket *udpCreateSocket(otInstance *aInstance,
-                             uint16_t port,
-                             otSockAddr *aSockName) {
+otUdpSocket *udpCreateSocket(otInstance *aInstance, otSockAddr *aSockName) {
   otUdpSocket *aSocket = calloc(1, sizeof(otUdpSocket));
   handleError(otUdpOpen(aInstance, aSocket, NULL, NULL));
 
@@ -51,7 +48,7 @@ void udpSendInfinite(otInstance *aInstance, uint16_t port, uint16_t destPort) {
   otSockAddr aSockName;
   aSockName.mAddress = *otThreadGetMeshLocalEid(aInstance);
   aSockName.mPort = port;
-  otUdpSocket *aSocket = udpCreateSocket(aInstance, port, &aSockName);
+  otUdpSocket *aSocket = udpCreateSocket(aInstance, &aSockName);
 
   otMessageInfo aMessageInfo;
   aMessageInfo.mSockAddr = *otThreadGetMeshLocalEid(aInstance);

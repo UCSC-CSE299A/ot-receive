@@ -2,9 +2,18 @@
 
 bool udpReceiveCallback(void *aContext,
                         const otMessage *aMessage,
-                        const otMessageInfo *aMessageInfo) {
-  otLogNotePlat("Received UDP message");
-  return true;
+                        const otMessageInfo *aMessageInfo)
+{     
+  otIp6Address *ipPeer = &(aMessageInfo->mPeerAddr);
+  char *ipPeerString = calloc(1, OT_IP6_SOCK_ADDR_STRING_SIZE);
+  otIp6AddressToString(ipPeer, ipPeerString, OT_IP6_SOCK_ADDR_STRING_SIZE);
+
+  uint16_t peerPort = aMessageInfo->mPeerPort;
+
+  if (ipPeer == MLEID_MULTICAST) && (peerPort == UDP_DEST_PORT) {
+    return true;
+  }
+  return false;
 }
 
 void udpCreateReceiver(otInstance *aInstance) {

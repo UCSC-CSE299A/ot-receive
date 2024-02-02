@@ -51,6 +51,8 @@ void handleMessageError(otMessage *aMessage, otError error);
 
 void ot_task_worker(void *aContext);
 
+otUdpSocket *udpCreateSocket(otInstance *aInstance, otSockAddr *aSockName);
+
 void udpCreateReceiver(otInstance *aInstance);
 
 void udpSendInfinite(otInstance *aInstance, uint16_t port, uint16_t destPort);
