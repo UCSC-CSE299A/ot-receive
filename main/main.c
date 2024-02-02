@@ -17,7 +17,7 @@
 #include <string.h>
 #include <stdbool.h>
 
-#include "ot_send.h"
+#include "ot_receive.h"
 
 void app_main(void)
 {

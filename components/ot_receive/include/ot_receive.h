@@ -2,7 +2,6 @@
 #define OT_SEND_
 
 #include "esp_ot_config.h"
-#include "ot_send.h"
 #include <openthread/logging.h>
 
 #include "esp_err.h"

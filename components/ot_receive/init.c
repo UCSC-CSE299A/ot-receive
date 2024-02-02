@@ -1,4 +1,4 @@
-#include "ot_send.h"
+#include "ot_receive.h"
 
 /**
  * @file
