@@ -59,7 +59,7 @@ void ot_task_worker(void *aContext)
     otOperationalDatasetTlvs dataset;
     otError error = otDatasetGetActiveTlvs(esp_openthread_get_instance(), &dataset);
     ESP_ERROR_CHECK(esp_openthread_auto_start((error == OT_ERROR_NONE) ? &dataset : NULL));
-    DEBUG_PRINT(otLogNotePlat("Attached Thread dataset and starting Thread."));
+    otLogNotePlat("Attached Thread dataset and starting Thread.");
     esp_openthread_launch_mainloop();
 
     // Clean up
