@@ -26,13 +26,3 @@ void handleMessageError(otMessage *aMessage, otError error) {
   }
   return;
 }
-
-otUdpSocket *udpCreateSocket(otInstance *aInstance,
-                             uint16_t port,
-                             otSockAddr *aSockName) {
-  otUdpSocket *aSocket = calloc(1, sizeof(otUdpSocket));
-  handleError(otUdpOpen(aInstance, aSocket, NULL, NULL));
-
-  handleError(otUdpBind(aInstance, aSocket, aSockName, OT_NETIF_THREAD));
-  return aSocket;
-}

@@ -5,6 +5,16 @@
 
 #define MAX_CHARS 22
 
+otUdpSocket *udpCreateSocket(otInstance *aInstance,
+                             uint16_t port,
+                             otSockAddr *aSockName) {
+  otUdpSocket *aSocket = calloc(1, sizeof(otUdpSocket));
+  handleError(otUdpOpen(aInstance, aSocket, NULL, NULL));
+
+  handleError(otUdpBind(aInstance, aSocket, aSockName, OT_NETIF_THREAD));
+  return aSocket;
+}
+
 otError udpAttachPayload(otMessage *aMessage) {
   static int count = 0;
 

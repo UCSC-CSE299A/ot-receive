@@ -13,15 +13,3 @@ void udpCreateReceiver(otInstance *aInstance) {
   handleError(otUdpAddReceiver(aInstance, receiver));
 }
 
-void udpReceiveInit(otInstance *aInstance, uint16_t port, uint16_t destPort) {
-  checkConnection(aInstance);
-
-  // otSockAddr aSockName;
-  // aSockName.mAddress = *otThreadGetMeshLocalEid(aInstance);
-  // aSockName.mPort = port;
-  // otUdpSocket *aSocket = udpCreateSocket(aInstance, port, &aSockName);
-
-  udpCreateReceiver(aInstance);
-  return;
-}
-
