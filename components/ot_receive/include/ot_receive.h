@@ -46,7 +46,7 @@
 */
 #define MLEID_MULTICAST "ff03::1"
 
-#define UDP_SOCK_PORT 12345
+#define UDP_SOCK_PORT 54321
 #define UDP_DEST_PORT 12345
 
 otError handleError(otError error);
