@@ -12,11 +12,6 @@
  * CONDITIONS OF ANY KIND, either express or implied.
 */
 
-#include <stdio.h>
-#include <unistd.h>
-#include <string.h>
-#include <stdbool.h>
-
 #include "ot_receive.h"
 
 void app_main(void)
