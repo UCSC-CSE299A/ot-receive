@@ -1,12 +1,25 @@
 #include "ot_receive.h"
 #include <string.h>
 
+/**
+ * Based upon the OpenThread CLI UDP Handler code.
+ * https://github.com/openthread/openthread/blob/main/src/cli/cli_udp.cpp#L461
+ *
+ * According to the handler code, `otMessageGetOffset()` returns the end
+ * of the Message header, while `otMessageGetLength()` returns the size
+ * of the Message header, payload included.
+*/
 void* udpGetPayload(const otMessage *aMessage) {
-  uint16_t offset = otMessageGetOffset(aMessage) - UDP_PAYLOAD_SIZE;
-  void* buffer = calloc(1, UDP_PAYLOAD_SIZE);
-  uint16_t bytesRead = otMessageRead(aMessage, offset, buffer, UDP_PAYLOAD_SIZE);
+  uint16_t offset = otMessageGetOffset(aMessage);
+  uint16_t length = otMessageGetLength(aMessage) - offset;
 
-  DEBUG_PRINT(otLogNotePlat("Bytes read: %d", (int) bytesRead));
+  void* buffer = calloc(1, length);
+  uint16_t bytesRead = otMessageRead(aMessage, offset, buffer, length);
+  if (bytesRead != length) {
+    ERROR_PRINT(otLogCritPlat ("Read %d bytes but expected %d bytes.",
+      bytesRead, length));
+  }
+
   return buffer;
 }
 
@@ -23,14 +36,7 @@ bool udpReceiveCallback(void *aContext,
 
   if ((peerPort == UDP_DEST_PORT) && (sockPort == UDP_SOCK_PORT)) {
     char* payload = (char *) udpGetPayload((const otMessage *) aMessage);
-
-    otLogNotePlat("--------------------");
-    for (char c = 0; c < otMessageGetOffset(aMessage); c++) {
-      otLogNotePlat("%c", payload[c]);
-    }
-    otLogNotePlat("--------------------");
-
-    // DEBUG_PRINT(otLogNotePlat("%x", payload));
+    otLogNotePlat(payload);
     free(payload);
     return true;
   }
