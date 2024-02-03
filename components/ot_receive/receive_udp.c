@@ -40,8 +40,12 @@ bool udpReceiveCallback(void *aContext,
 
   if ((senderPort == UDP_DEST_PORT) && (receiverPort == UDP_SOCK_PORT)) {
     char* payload = (char *) udpGetPayload((const otMessage *) aMessage);
-    otLogNotePlat(payload);
+    char *output = calloc(1, OUTPUT_STRING_SIZE);
 
+    sprintf(output, "Received %s", payload);
+    otLogNotePlat(output);
+
+    free(output);
     free(payload);
     return true;
   }
