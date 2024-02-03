@@ -52,6 +52,8 @@ void udpReply(otInstance *aInstance,
   otIp6Address *peerAddr = &(aMessageInfo.mPeerAddr);
   handleError(otIp6AddressFromString(MLEID_MULTICAST, peerAddr));
 
-  udpSendReply(aInstance, port, destPort, payload, payloadLength);
+  udpSendReply(aInstance, port, destPort,
+               aSocket, &aMessageInfo, payload,
+               payloadLength);
   return;
 }
