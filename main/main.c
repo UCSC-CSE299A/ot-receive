@@ -35,6 +35,8 @@ void app_main(void)
     ESP_ERROR_CHECK(esp_vfs_eventfd_register(&eventfd_config));
     xTaskCreate(ot_task_worker, "ot_cli_main", 10240, xTaskGetCurrentTaskHandle(), 5, NULL);
 
+    // Create UDP socket for sending replies.
+
     udpCreateReceiver(esp_openthread_get_instance());
     return;
 }

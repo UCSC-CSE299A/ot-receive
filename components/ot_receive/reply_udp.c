@@ -1,6 +1,10 @@
 #include "ot_receive.h"
 
-otUdpSocket *udpCreateSocket(otInstance *aInstance, otSockAddr *aSockName) {
+otUdpSocket *udpCreateSocket(otInstance *aInstance, uint16_t port) {
+  otSockAddr *aSockName = calloc(1, sizeof(otSockAddr));
+  aSockName->mAddress = *otThreadGetMeshLocalEid(aInstance);
+  aSockName->mPort = port;
+
   otUdpSocket *aSocket = calloc(1, sizeof(otUdpSocket));
   handleError(otUdpOpen(aInstance, aSocket, NULL, NULL));
 
@@ -30,30 +34,19 @@ void udpSendReply(otInstance *aInstance,
   return;
 }
 
-void udpReply(otInstance *aInstance,
-              uint16_t port,
-              uint16_t destPort,
-              void* payload,
-              uint16_t payloadLength) 
+otMessageInfo *udpInitMessageInfo(otInstance *aInstance,
+                                  uint16_t port,
+                                  uint16_t destPort,
+                                  void* payload,
+                                  uint16_t payloadLength)
 {
-  checkConnection(aInstance);
-
-  otSockAddr aSockName;
-  aSockName.mAddress = *otThreadGetMeshLocalEid(aInstance);
-  aSockName.mPort = port;
-  otUdpSocket *aSocket = udpCreateSocket(aInstance, &aSockName);
-
-  otMessageInfo aMessageInfo;
-  aMessageInfo.mSockAddr = *otThreadGetMeshLocalEid(aInstance);
-  aMessageInfo.mSockPort = port;
-  aMessageInfo.mPeerPort = destPort;
-  aMessageInfo.mLinkInfo = NULL;
-  aMessageInfo.mHopLimit = 0;  // default
-  otIp6Address *peerAddr = &(aMessageInfo.mPeerAddr);
+  otMessageInfo *aMessageInfo = calloc(1, sizeof(otMessageInfo));
+  aMessageInfo->mSockAddr = *otThreadGetMeshLocalEid(aInstance);
+  aMessageInfo->mSockPort = port;
+  aMessageInfo->mPeerPort = destPort;
+  aMessageInfo->mLinkInfo = NULL;
+  aMessageInfo->mHopLimit = 0;  // default
+  otIp6Address *peerAddr = &(aMessageInfo->mPeerAddr);
   handleError(otIp6AddressFromString(MLEID_MULTICAST, peerAddr));
-
-  udpSendReply(aInstance, port, destPort,
-               aSocket, &aMessageInfo, payload,
-               payloadLength);
-  return;
+  return aMessageInfo;
 }
