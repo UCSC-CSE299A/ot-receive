@@ -1,5 +1,10 @@
 #include "ot_receive.h"
 #include <string.h>
+#include <assert.h>
+
+static inline uint16_t getPayloadLength(const otMessage *aMessage) {
+  return otMessageGetLength(aMessage) - otMessageGetOffset(aMessage);
+}
 
 /**
  * Based upon the OpenThread CLI UDP Handler code.
@@ -11,32 +16,32 @@
 */
 void* udpGetPayload(const otMessage *aMessage) {
   uint16_t offset = otMessageGetOffset(aMessage);
-  uint16_t length = otMessageGetLength(aMessage) - offset;
+  uint16_t length = getPayloadLength(aMessage);
 
   void* buffer = calloc(1, length);
   uint16_t bytesRead = otMessageRead(aMessage, offset, buffer, length);
-  if (bytesRead != length) {
-    ERROR_PRINT(otLogCritPlat ("Read %d bytes but expected %d bytes.",
-      bytesRead, length));
-  }
-
+  assert(bytesRead == length);
   return buffer;
 }
 
 /**
  * Only handle messages sent by the `ot-send` UDP sender, which broadcast
  * packets at MLEID_MULTICAST with port 12345.
+ *
+ * Based on observation, the PEER IP and port corresponds to the sender,
+ * while the SOCKET IP and port corresponds to the receiver.
 */
 bool udpReceiveCallback(void *aContext,
                         const otMessage *aMessage,
                         const otMessageInfo *aMessageInfo)
 {
-  uint16_t peerPort = aMessageInfo->mPeerPort;
-  uint16_t sockPort = aMessageInfo->mSockPort;
+  uint16_t senderPort = aMessageInfo->mPeerPort;
+  uint16_t receiverPort = aMessageInfo->mSockPort;
 
-  if ((peerPort == UDP_DEST_PORT) && (sockPort == UDP_SOCK_PORT)) {
+  if ((senderPort == UDP_DEST_PORT) && (receiverPort == UDP_SOCK_PORT)) {
     char* payload = (char *) udpGetPayload((const otMessage *) aMessage);
     otLogNotePlat(payload);
+
     free(payload);
     return true;
   }
