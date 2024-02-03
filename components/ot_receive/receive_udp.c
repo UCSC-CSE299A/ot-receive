@@ -47,4 +47,5 @@ void udpCreateReceiver(otInstance *aInstance) {
   otUdpReceiver* receiver = calloc(1, sizeof(otUdpReceiver));
   receiver->mHandler = udpReceiveCallback;
   handleError(otUdpAddReceiver(aInstance, receiver));
+  return;
 }
