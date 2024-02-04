@@ -9,32 +9,38 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "driver/gpio.h"
-#include "esp_log.h"
 #include "led_strip.h"
 #include "sdkconfig.h"
 
 #include "led.h"
 
-Led* blink_led(Led* led) {
-  if (led->s_led_state) {
-      led_strip_set_pixel_hsv(
-        led->led_strip,
-        0,
-        random(),
-        random(),
-        10
-      );
-      led_strip_refresh(led->led_strip);
-  } else {
-      led_strip_clear(led->led_strip);
-  }
+#define INDEX 0
 
-  return led;
+#define HUE 10
+#define SATURATION 188
+#define VALUE 10
+
+void initLed() {
+  globalLed = calloc(1, sizeof(Led));
+  globalLed->tag = "example";
+  globalLed->s_led_state = 1;
+  globalLed->led_strip = NULL;
+  return;
 }
 
-Led* configure_led(Led *led) {
-  ESP_LOGI(led->tag, "Example configured to blink addressable LED!");
+void blinkLed() {
+  if (globalLed->s_led_state) {
+      led_strip_set_pixel_hsv(globalLed->led_strip, INDEX,
+                              HUE, SATURATION, VALUE);
+      led_strip_refresh(globalLed->led_strip);
+  } else {
+      led_strip_clear(globalLed->led_strip);
+  }
 
+  return;
+}
+
+void configureLed() {
   led_strip_config_t strip_config = {
       .strip_gpio_num = BLINK_GPIO,
       .max_leds = 1,
@@ -48,9 +54,9 @@ Led* configure_led(Led *led) {
     led_strip_new_rmt_device(
     &strip_config,
     &rmt_config,
-    &(led->led_strip))
+    &(globalLed->led_strip))
   );
-  led_strip_clear(led->led_strip);
+  led_strip_clear(globalLed->led_strip);
 
-  return led;
+  return;
 }

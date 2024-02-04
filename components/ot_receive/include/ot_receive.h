@@ -26,6 +26,8 @@
 #include "openthread/tasklet.h"
 #include "openthread/udp.h"
 
+#include "led.h"
+
 #define DEBUG true
 #define DELIMITER "************************************"
 #define PRINT_DELIMIER otLogNotePlat(DELIMITER)

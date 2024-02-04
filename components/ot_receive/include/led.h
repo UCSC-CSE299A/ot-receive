@@ -19,7 +19,15 @@ typedef struct led {
 
 typedef struct Led led;
 
-Led* blink_led(Led*);
-Led* configure_led(Led*);
+/**
+ * Stores a reference to the built-in LED on the MCU
+ * as a global variable accessible by any function in the
+ * `led.h` API.
+*/
+extern Led* globalLed;
+
+void initLed(void);
+void blinkLed(void);
+void configureLed(void);
 
 #endif
