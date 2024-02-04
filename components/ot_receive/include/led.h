@@ -5,7 +5,9 @@
 #ifndef LED
 #define LED
 
+#include <stdbool.h>
 #include "freertos/FreeRTOS.h"
+
 #include "led_strip.h"
 
 /**
@@ -15,23 +17,20 @@
 #define BLINK_GPIO 8
 #define BLINK_PERIOD 500
 
+#define ON true
+#define OFF false
+
 typedef struct led {
   char* tag;
-  uint8_t s_led_state;
-  led_strip_handle_t led_strip;
+  bool ledOn;
+  led_strip_handle_t ledStrip;
 } Led;
 
 typedef struct Led led;
 
-/**
- * Stores a reference to the built-in LED on the MCU
- * as a global variable accessible by any function in the
- * `led.h` API.
-*/
-extern Led* globalLed;
-
 void initLed(void);
-void blinkLed(void);
+void flashLed(void);
 void configureLed(void);
+void setLed(bool ledOn);
 
 #endif

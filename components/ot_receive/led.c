@@ -20,21 +20,33 @@
 #define SATURATION 188
 #define VALUE 10
 
+/**
+ * Stores a reference to the built-in LED on the MCU
+ * as a global variable accessible by any function in the
+ * `led.h` API.
+*/
+Led* globalLed;
+
 void initLed() {
   globalLed = calloc(1, sizeof(Led));
   globalLed->tag = "example";
-  globalLed->s_led_state = 1;
-  globalLed->led_strip = NULL;
+  globalLed->ledOn = 1;
+  globalLed->ledStrip = NULL;
   return;
 }
 
-void blinkLed() {
-  if (globalLed->s_led_state) {
-      led_strip_set_pixel_hsv(globalLed->led_strip, INDEX,
+void setLed(bool ledOn) {
+  globalLed->ledOn = ledOn;
+  return;
+}
+
+void flashLed() {
+  if (globalLed->ledOn) {
+      led_strip_set_pixel_hsv(globalLed->ledStrip, INDEX,
                               HUE, SATURATION, VALUE);
-      led_strip_refresh(globalLed->led_strip);
+      led_strip_refresh(globalLed->ledStrip);
   } else {
-      led_strip_clear(globalLed->led_strip);
+      led_strip_clear(globalLed->ledStrip);
   }
 
   return;
@@ -54,9 +66,9 @@ void configureLed() {
     led_strip_new_rmt_device(
     &strip_config,
     &rmt_config,
-    &(globalLed->led_strip))
+    &(globalLed->ledStrip))
   );
-  led_strip_clear(globalLed->led_strip);
+  led_strip_clear(globalLed->ledStrip);
 
   return;
 }

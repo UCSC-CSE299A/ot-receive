@@ -1,4 +1,5 @@
 #include "ot_receive.h"
+#include "led.h"
 #include <string.h>
 #include <assert.h>
 
@@ -44,11 +45,14 @@ bool udpReceiveCallback(void *aContext,
 
     sprintf(output, "Received %s", payload);
     otLogNotePlat(output);
+    setLed(ON);
 
     free(output);
     free(payload);
+    setLed(OFF);
     return true;
   }
+
   return false;
 }
 
