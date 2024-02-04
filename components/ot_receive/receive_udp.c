@@ -50,10 +50,12 @@ bool udpReceiveCallback(void *aContext,
 
     free(output);
     free(payload);
+
+    vTaskDelay(SEND_WAIT_TIME);
+    setLed(OFF);
     return true;
   }
 
-  setLed(OFF);
   return false;
 }
 
