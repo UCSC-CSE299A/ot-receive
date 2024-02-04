@@ -32,6 +32,7 @@ void app_main(void)
     xTaskCreate(ot_task_worker, "ot_cli_main", 10240, xTaskGetCurrentTaskHandle(), 5, NULL);
 
     initLed();
+    configureLed();
     udpCreateReceiver(esp_openthread_get_instance());
 
     while (true) {
