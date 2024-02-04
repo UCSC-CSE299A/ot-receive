@@ -19,6 +19,8 @@ I(17666) OPENTHREAD:[N] Platform------: Received Packet Number 49
 
 Note that the `Packet Number` may vary depending on when you have created the UDP socket.
 
+Furthermore, the built-in LED will flash whenever a packet is received.
+
 ## Enabling Automatic Start
 
 The `UART` port should be used in order to enable automatic start of recieving UDP packets without turning on the serial monitor. The `USB-Serial` can be used, but there is no guarantee that it may work without use of the serial monitor.
