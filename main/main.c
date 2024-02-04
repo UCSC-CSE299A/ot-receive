@@ -35,6 +35,7 @@ void app_main(void)
     configureLed();
     udpCreateReceiver(esp_openthread_get_instance());
 
+    setLed(OFF);
     while (true) {
       flashLed();
     }

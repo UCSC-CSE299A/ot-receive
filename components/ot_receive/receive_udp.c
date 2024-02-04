@@ -40,19 +40,20 @@ bool udpReceiveCallback(void *aContext,
   uint16_t receiverPort = aMessageInfo->mSockPort;
 
   if ((senderPort == UDP_DEST_PORT) && (receiverPort == UDP_SOCK_PORT)) {
+    setLed(ON);
+
     char* payload = (char *) udpGetPayload((const otMessage *) aMessage);
     char *output = calloc(1, OUTPUT_STRING_SIZE);
 
     sprintf(output, "Received %s", payload);
     otLogNotePlat(output);
-    setLed(ON);
 
     free(output);
     free(payload);
-    setLed(OFF);
     return true;
   }
 
+  setLed(OFF);
   return false;
 }
 
