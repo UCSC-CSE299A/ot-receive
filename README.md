@@ -1,38 +1,24 @@
 | Supported Targets | ESP32-C6 | ESP32-H2 |
 | ----------------- | -------- | -------- |
 
-# OpenThread UDP Sender
+# OpenThread UDP Receiver.
 
-This codebase enables an 802.15.4 ESP32 MCU to broadcast UDP packets in a Thread WLAN.
+This codebase enables an 802.15.4 ESP32 MCU to receive packets broadcasted by the [UDP Sender](https://github.com/UCSC-CSE299A/ot-send).
 
 ## Setup
 
-You will first need to form a Thread WLAN with at least two devices.
+You will first need to form a Thread WLAN with at least two devices. Wait until *both* the sending and receiving devices are connected to the Thread WLAN.
 
-On the sending device, wait until it has successfully connected to the Thread WLAN. If the sending device is working properly, you should expect the following output, which will keep printing in an infinite loop:
+If the receiving device is working properly, you should expect the following output, which will keep printing in an infinite loop:
 ```
-I(49027) OPENTHREAD:[N] Platform------: ************************************
-I(49027) OPENTHREAD:[N] Platform------: UDP packet successfully sent.
-I(49027) OPENTHREAD:[N] Platform------: ************************************
-```
-
-All other devices in the networks will act as the receivers. Set up the UDP socket on each receiving device to listen to port `12345`.
-```bash
-udp open
-udp bind :: 1235
-```
-
-You should then to expect to see the following output from each of the devices:
-```
-22 bytes from fdc2:53d3:bb7e:2437:a847:67e6:f17e:f186 12345 Packet Number 1
-22 bytes from fdc2:53d3:bb7e:2437:a847:67e6:f17e:f186 12345 Packet Number 2
-22 bytes from fdc2:53d3:bb7e:2437:a847:67e6:f17e:f186 12345 Packet Number 3
-22 bytes from fdc2:53d3:bb7e:2437:a847:67e6:f17e:f186 12345 Packet Number 4
-...
+I(2676) OPENTHREAD:[N] Platform------: Received Packet Number 46
+I(7706) OPENTHREAD:[N] Platform------: Received Packet Number 47
+I(12676) OPENTHREAD:[N] Platform------: Received Packet Number 48
+I(17666) OPENTHREAD:[N] Platform------: Received Packet Number 49
 ```
 
 Note that the `Packet Number` may vary depending on when you have created the UDP socket.
 
 ## Enabling Automatic Start
 
-The `UART` port must be used in order to enable automatic start of sending UDP packets without turning on the serial monitor. The `USB-Serial` port should not be utilized.
+The `UART` port should be used in order to enable automatic start of recieving UDP packets without turning on the serial monitor. The `USB-Serial` can be used, but there is no guarantee that it may work without use of the serial monitor.
