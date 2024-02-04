@@ -8,7 +8,11 @@
 #include "freertos/FreeRTOS.h"
 #include "led_strip.h"
 
-#define BLINK_GPIO 8 // default GPIO used in the ESP Blink example
+/**
+ * According to the ESP Docs, GPIO 8 controls the internal LED:
+ * https://docs.espressif.com/projects/espressif-esp-dev-kits/en/latest/esp32h2/esp32-h2-devkitm-1/user_guide.html#description-of-components
+*/
+#define BLINK_GPIO 8
 #define BLINK_PERIOD 500
 
 typedef struct led {
