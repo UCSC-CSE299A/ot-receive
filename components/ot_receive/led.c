@@ -16,8 +16,11 @@
 
 #define INDEX 0
 
-#define HUE 10
-#define SATURATION 188
+/**
+ * LED color will be a light blue:
+*/
+#define HUE 137
+#define SATURATION 100
 #define VALUE 10
 
 /**
