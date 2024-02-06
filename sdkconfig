@@ -477,6 +477,13 @@ CONFIG_ESPTOOLPY_MONITOR_BAUD=115200
 # end of Serial flasher config
 
 #
+# CSE 299A OpenThread Encryption
+#
+CONFIG_CSE299A_DATA_ENCRYPT=1
+CONFIG_CSE299A_DATA_DECRYPT=1
+# end of CSE 299A OpenThread Encryption
+
+#
 # Partition Table
 #
 # CONFIG_PARTITION_TABLE_SINGLE_APP is not set
