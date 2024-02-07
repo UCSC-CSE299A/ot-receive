@@ -1,7 +1,7 @@
 | Supported Targets | ESP32-C6 | ESP32-H2 |
 | ----------------- | -------- | -------- |
 
-# OpenThread UDP Receiver.
+# OpenThread UDP Receiver
 
 This codebase enables an 802.15.4 ESP32 MCU to receive packets broadcasted by the [UDP Sender](https://github.com/UCSC-CSE299A/ot-send).
 
