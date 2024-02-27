@@ -22,6 +22,6 @@ dependencies:
       path: /Users/simeon/esp/esp-idf/examples/common_components/iperf
       type: local
     version: '*'
-manifest_hash: 445b35255432d99503fc8a788db4e72ef07926c5ff4c08e78ae507cf9d52d53e
+manifest_hash: bb44589da73e279fba75c60a441196dfd630381afa1901e6318f57b0fe5ba881
 target: esp32h2
 version: 1.0.0
