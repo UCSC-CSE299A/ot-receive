@@ -41,9 +41,8 @@
 
 #define OT_DISCONNECTED(role) (role == OT_DEVICE_ROLE_DISABLED) || (role == OT_DEVICE_ROLE_DETACHED)
 
-#define MAX_CHARS 22
-#define UDP_PAYLOAD_SIZE (MAX_CHARS * sizeof(char))
-#define OUTPUT_STRING_SIZE 40
+#define MAX_CHARS 55
+#define OUTPUT_STRING_SIZE MAX_CHARS + strlen("Received ")
 
 /**
  * https://openthread.io/guides/thread-primer/ipv6-addressing#multicast

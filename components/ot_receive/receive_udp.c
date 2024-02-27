@@ -3,6 +3,21 @@
 #include <string.h>
 #include <assert.h>
 
+/**
+ * Empties all memory for `size` bytes starting at memory address `pointer`.
+ *
+ * @param[in] pointer: the pointer of the stack memory
+ * @param[in] size:    the size of the memory that `pointer` points to
+ *
+ * I got the idea to use `memset()` to clear stack memory from
+ * the Google Search AI:
+ * https://docs.google.com/document/d/1o-NaEOA-vzWPCv7VX1dONUfwos2epveDk4H_Y2Y5g1Y/edit?usp=sharing
+*/
+static inline void emptyMemory(void* pointer, size_t size) {
+  memset(pointer, 0, size);
+  return;
+}
+
 static inline uint16_t getPayloadLength(const otMessage *aMessage) {
   return otMessageGetLength(aMessage) - otMessageGetOffset(aMessage);
 }
@@ -15,14 +30,13 @@ static inline uint16_t getPayloadLength(const otMessage *aMessage) {
  * of the Message header, while `otMessageGetLength()` returns the size
  * of the Message header, payload included.
 */
-void* udpGetPayload(const otMessage *aMessage) {
+void udpGetPayload(const otMessage *aMessage, void* buffer) {
   uint16_t offset = otMessageGetOffset(aMessage);
   uint16_t length = getPayloadLength(aMessage);
 
-  void* buffer = calloc(1, length);
   uint16_t bytesRead = otMessageRead(aMessage, offset, buffer, length);
   assert(bytesRead == length);
-  return buffer;
+  return;
 }
 
 /**
@@ -42,14 +56,15 @@ bool udpReceiveCallback(void *aContext,
   if ((senderPort == UDP_DEST_PORT) && (receiverPort == UDP_SOCK_PORT)) {
     setLed(ON);
 
-    char* payload = (char *) udpGetPayload((const otMessage *) aMessage);
-    char *output = calloc(1, OUTPUT_STRING_SIZE);
+    char payload[MAX_CHARS];
+    emptyMemory(payload, MAX_CHARS);
+    udpGetPayload((const otMessage *) aMessage, payload);
+
+    char output[OUTPUT_STRING_SIZE];
+    emptyMemory(output, OUTPUT_STRING_SIZE);
 
     sprintf(output, "Received %s", payload);
     otLogNotePlat(output);
-
-    free(output);
-    free(payload);
 
     vTaskDelay(RECEIVE_WAIT_TIME);
     setLed(OFF);
