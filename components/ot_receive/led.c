@@ -25,38 +25,52 @@
 #define VALUE 10
 
 /**
- * Stores a reference to the built-in LED on the MCU
- * as a global variable accessible by any function in the
- * `led.h` API.
+ * Initialize the global Led.
+ *
+ * I re-learned how to use extern global variables from:
+ * https://stackoverflow.com/a/1433387
 */
-Led* globalLed;
+Led globalLed = {
+  "",     // led->tag
+  0,      // led->ledOn
+  NULL    // led->ledStrip
+};
 
-void initLed() {
-  globalLed = calloc(1, sizeof(Led));
-  globalLed->tag = "example";
-  globalLed->ledOn = 1;
-  globalLed->ledStrip = NULL;
+void initLed(Led *led) {
+  led->tag = "ot-send-led";
+  led->ledOn = 1;
+  led->ledStrip = NULL;
   return;
 }
 
-void setLed(bool ledOn) {
-  globalLed->ledOn = ledOn;
+/**
+ * Although I will allocate the "Led" struct in the stack,
+ * the "led_strip_handle_t" will use heap memory. This function
+ * free the heap memory holding the no longer needed "led_strip_handle_t".
+*/
+void freeLed(Led *led) {
+  led_strip_del(led->ledStrip);
   return;
 }
 
-void flashLed() {
-  if (globalLed->ledOn) {
-      led_strip_set_pixel_hsv(globalLed->ledStrip, INDEX,
+void setLed(Led *led, bool ledOn) {
+  led->ledOn = ledOn;
+  return;
+}
+
+void flashLed(Led *led) {
+  if (led->ledOn) {
+      led_strip_set_pixel_hsv(led->ledStrip, INDEX,
                               HUE, SATURATION, VALUE);
-      led_strip_refresh(globalLed->ledStrip);
+      led_strip_refresh(led->ledStrip);
   } else {
-      led_strip_clear(globalLed->ledStrip);
+      led_strip_clear(led->ledStrip);
   }
 
   return;
 }
 
-void configureLed() {
+void configureLed(Led *led) {
   led_strip_config_t strip_config = {
       .strip_gpio_num = BLINK_GPIO,
       .max_leds = 1,
@@ -70,9 +84,9 @@ void configureLed() {
     led_strip_new_rmt_device(
     &strip_config,
     &rmt_config,
-    &(globalLed->ledStrip))
+    &(led->ledStrip))
   );
-  led_strip_clear(globalLed->ledStrip);
+  led_strip_clear(led->ledStrip);
 
   return;
 }

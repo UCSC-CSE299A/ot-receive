@@ -28,9 +28,19 @@ typedef struct led {
 
 typedef struct Led led;
 
-void initLed(void);
-void flashLed(void);
-void configureLed(void);
-void setLed(bool ledOn);
+/**
+ * A global variable that stores the reference to the internal
+ * LED used by the ESP32-H2.
+ *
+ * I re-learned how to use extern global variables from:
+ * https://stackoverflow.com/a/1433387
+*/
+extern Led globalLed;
+
+void initLed(Led *led);
+void flashLed(Led *led);
+void configureLed(Led *led);
+void setLed(Led *led, bool ledOn);
+void freeLed(Led *led);
 
 #endif

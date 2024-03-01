@@ -54,7 +54,7 @@ bool udpReceiveCallback(void *aContext,
   uint16_t receiverPort = aMessageInfo->mSockPort;
 
   if ((senderPort == UDP_DEST_PORT) && (receiverPort == UDP_SOCK_PORT)) {
-    setLed(ON);
+    setLed(&globalLed, ON);
 
     char payload[MAX_CHARS];
     emptyMemory(payload, MAX_CHARS);
@@ -67,7 +67,7 @@ bool udpReceiveCallback(void *aContext,
     otLogNotePlat(output);
 
     vTaskDelay(RECEIVE_WAIT_TIME);
-    setLed(OFF);
+    setLed(&globalLed, OFF);
     return true;
   }
 
