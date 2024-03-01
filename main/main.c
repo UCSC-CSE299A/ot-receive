@@ -36,7 +36,9 @@ void app_main(void)
     initLed(&globalLed);
     configureLed(&globalLed);
 
-    udpCreateReceiver(esp_openthread_get_instance());
+    otUdpReceiver receiver;
+    udpInitReceiver(&receiver);
+    udpCreateReceiver(esp_openthread_get_instance(), &receiver);
 
     setLed(&globalLed, OFF);
     while (true) {

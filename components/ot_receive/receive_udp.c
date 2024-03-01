@@ -74,8 +74,14 @@ bool udpReceiveCallback(void *aContext,
   return false;
 }
 
-void udpCreateReceiver(otInstance *aInstance) {
-  otUdpReceiver* receiver = calloc(1, sizeof(otUdpReceiver));
+void udpInitReceiver(otUdpReceiver *receiver) {
+  receiver->mContext = NULL;
+  receiver->mHandler = NULL;
+  receiver->mNext = NULL;
+  return;
+}
+
+void udpCreateReceiver(otInstance *aInstance, otUdpReceiver *receiver) {
   receiver->mHandler = udpReceiveCallback;
   handleError(otUdpAddReceiver(aInstance, receiver));
   return;

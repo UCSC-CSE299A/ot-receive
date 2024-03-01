@@ -34,6 +34,9 @@ typedef struct Led led;
  *
  * I re-learned how to use extern global variables from:
  * https://stackoverflow.com/a/1433387
+ *
+ * I re-learned that extern variables cannot leak memory from:
+ * https://stackoverflow.com/a/2513804
 */
 extern Led globalLed;
 

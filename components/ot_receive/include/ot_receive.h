@@ -59,6 +59,8 @@ void ot_task_worker(void *aContext);
 
 void checkConnection(otInstance *aInstance);
 
-void udpCreateReceiver(otInstance *aInstance);
+void udpInitReceiver(otUdpReceiver *receiver);
+
+void udpCreateReceiver(otInstance *aInstance, otUdpReceiver *receiver);
 
 #endif // OT_RECEIVE_
