@@ -37,7 +37,7 @@ Led globalLed = {
 };
 
 void initLed(Led *led) {
-  led->tag = "ot-send-led";
+  led->tag = "ot-receive-led";
   led->ledOn = 1;
   led->ledStrip = NULL;
   return;
