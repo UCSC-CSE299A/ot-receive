@@ -6,4 +6,11 @@ menu "OpenThread CLI Example"
         help
             If enabled, the Openthread Device will create or connect to thread network with pre-configured
             network parameters automatically. Otherwise, user need to configure Thread via CLI command manually.
+
+    config LED_ENABLED
+      bool 'Enable the LED to flash whenever a packet is received.'
+      default False
+      help
+          If enabled, the LED will flash whenever a packet is received.
+
 endmenu

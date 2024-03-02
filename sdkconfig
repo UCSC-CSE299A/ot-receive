@@ -502,6 +502,7 @@ CONFIG_PARTITION_TABLE_MD5=y
 # OpenThread CLI Example
 #
 CONFIG_OPENTHREAD_AUTO_START=y
+CONFIG_LED_ENABLED=y
 # end of OpenThread CLI Example
 
 #

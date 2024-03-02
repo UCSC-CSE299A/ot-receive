@@ -33,18 +33,22 @@ void app_main(void)
     xTaskCreate(ot_task_worker, "ot_cli_main", 10240,
                 xTaskGetCurrentTaskHandle(), 5, NULL);
 
+#if CONFIG_LED_ENABLED
     initLed(&globalLed);
     configureLed(&globalLed);
+#endif
 
     otUdpReceiver receiver;
     udpInitReceiver(&receiver);
     udpCreateReceiver(esp_openthread_get_instance(), &receiver);
 
+#if CONFIG_LED_ENABLED
     setLed(&globalLed, OFF);
     while (true) {
       flashLed(&globalLed);
     }
-
     freeLed(&globalLed);
+#endif
+
     return;
 }
