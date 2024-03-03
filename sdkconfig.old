@@ -499,11 +499,11 @@ CONFIG_PARTITION_TABLE_MD5=y
 # end of Partition Table
 
 #
-# OpenThread CLI Example
+# CSE 299A OpenThread Receiver
 #
 CONFIG_OPENTHREAD_AUTO_START=y
-# CONFIG_LED_ENABLED is not set
-# end of OpenThread CLI Example
+CONFIG_LED_ENABLED=y
+# end of CSE 299A OpenThread Receiver
 
 #
 # Iperf Configuration

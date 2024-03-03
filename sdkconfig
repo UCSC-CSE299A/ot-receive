@@ -481,7 +481,7 @@ CONFIG_ESPTOOLPY_MONITOR_BAUD=115200
 #
 # CSE 299A OpenThread Encryption
 #
-CONFIG_CSE299A_CIPHER_SUITE=2
+CONFIG_CSE299A_CIPHER_SUITE=3
 CONFIG_CSE299A_DEBUG_ENABLED=0
 # end of CSE 299A OpenThread Encryption
 
@@ -499,11 +499,11 @@ CONFIG_PARTITION_TABLE_MD5=y
 # end of Partition Table
 
 #
-# OpenThread CLI Example
+# CSE 299A OpenThread Receiver
 #
 CONFIG_OPENTHREAD_AUTO_START=y
 CONFIG_LED_ENABLED=y
-# end of OpenThread CLI Example
+# end of CSE 299A OpenThread Receiver
 
 #
 # Iperf Configuration
