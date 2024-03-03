@@ -68,12 +68,11 @@ bool udpReceiveCallback(void *aContext,
 
     otLogNotePlat(output);
 
-    return true;
-  }
-
 #if CONFIG_LED_ENABLED
     setLed(&globalLed, OFF);
 #endif
+    return true;
+  }
 
   return false;
 }
