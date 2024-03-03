@@ -15,6 +15,10 @@
 #include "ot_receive.h"
 #include "led.h"
 
+inline otInstance* getInstance() {
+  return esp_openthread_get_instance();
+};
+
 void app_main(void)
 {
     // Used eventfds:
@@ -38,9 +42,17 @@ void app_main(void)
     configureLed(&globalLed);
 #endif
 
+    otSockAddr aSockName;
+    EmptyMemory(&aSockName, sizeof(otSockAddr));
+
+    otUdpSocket aSocket;
+    EmptyMemory(&aSocket, sizeof(otUdpSocket));
+
+    createReceiverSocket(getInstance(), UDP_SOCK_PORT, &aSockName, &aSocket);
+
     otUdpReceiver receiver;
     udpInitReceiver(&receiver);
-    udpCreateReceiver(esp_openthread_get_instance(), &receiver);
+    udpCreateReceiver(getInstance(), &receiver);
 
 #if CONFIG_LED_ENABLED
     setLed(&globalLed, OFF);

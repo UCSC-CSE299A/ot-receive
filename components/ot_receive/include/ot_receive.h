@@ -28,11 +28,17 @@
 
 #include "led.h"
 
-#define DEBUG true
-#define DELIMITER "************************************"
-#define PRINT_DELIMIER otLogNotePlat(DELIMITER)
-#define DEBUG_PRINT(ot_note) PRINT_DELIMIER; ot_note; PRINT_DELIMIER;
-#define ERROR_PRINT(ot_error) otLogCritPlat(DELIMITER); ot_error; otLogCritPlat(DELIMITER);
+/**
+ * Empties all memory for `size` bytes starting at memory address `pointer`.
+ *
+ * @param[in] pointer: the pointer of the stack memory
+ * @param[in] size:    the size of the memory that `pointer` points to
+ *
+ * I got the idea to use `memset()` to clear stack memory from
+ * the Google Search AI:
+ * https://docs.google.com/document/d/1o-NaEOA-vzWPCv7VX1dONUfwos2epveDk4H_Y2Y5g1Y/edit?usp=sharing
+*/
+#define EmptyMemory(pointer, size) memset((void *) pointer, 0, size)
 
 #define MS_TO_TICKS(ms) ms / portTICK_PERIOD_MS
 #define DEFAULT_WAIT_TIME MS_TO_TICKS(100)
@@ -68,5 +74,16 @@ void checkConnection(otInstance *aInstance);
 void udpInitReceiver(otUdpReceiver *receiver);
 
 void udpCreateReceiver(otInstance *aInstance, otUdpReceiver *receiver);
+
+void createReceiverSocket(otInstance *aInstance,
+                          uint16_t port,
+                          otSockAddr *aSockName,
+                          otUdpSocket *aSocket);
+
+#define DEBUG true
+#define DELIMITER "************************************"
+#define PRINT_DELIMIER otLogNotePlat(DELIMITER)
+#define DEBUG_PRINT(ot_note) PRINT_DELIMIER; ot_note; PRINT_DELIMIER;
+#define ERROR_PRINT(ot_error) otLogCritPlat(DELIMITER); ot_error; otLogCritPlat(DELIMITER);
 
 #endif // OT_RECEIVE_
