@@ -58,24 +58,22 @@ bool udpReceiveCallback(void *aContext,
     setLed(&globalLed, ON);
 #endif
 
-    char payload[MAX_CHARS];
-    emptyMemory(payload, MAX_CHARS);
+    char payload[PAYLOAD_SIZE];
+    emptyMemory(payload, PAYLOAD_SIZE);
     udpGetPayload((const otMessage *) aMessage, payload);
 
     char output[OUTPUT_STRING_SIZE];
     emptyMemory(output, OUTPUT_STRING_SIZE);
-
     sprintf(output, "Received %s", payload);
+
     otLogNotePlat(output);
 
-    vTaskDelay(RECEIVE_WAIT_TIME);
+    return true;
+  }
 
 #if CONFIG_LED_ENABLED
     setLed(&globalLed, OFF);
 #endif
-
-    return true;
-  }
 
   return false;
 }

@@ -41,13 +41,19 @@
 
 #define OT_DISCONNECTED(role) (role == OT_DEVICE_ROLE_DISABLED) || (role == OT_DEVICE_ROLE_DETACHED)
 
-#define MAX_CHARS 55
-#define OUTPUT_STRING_SIZE MAX_CHARS + strlen("Received ")
-
 /**
- * https://openthread.io/guides/thread-primer/ipv6-addressing#multicast
+ * Each send packet will have the following payload:
+ * 
+ *    "Packet Number [uint_32t]"
+ *
+ * Substring "Packet Number " makes up 14 bytes.
+ * A 32 bit integers is 4 bytes long.
+ *
+ * Thus, the total payload isze is 14 + 4 = 18 bytes.
 */
-#define MLEID_MULTICAST "ff03::1"
+#define PAYLOAD_SIZE 18
+
+#define OUTPUT_STRING_SIZE strlen("Received ") + PAYLOAD_SIZE
 
 #define UDP_SOCK_PORT 54321
 #define UDP_DEST_PORT 12345
