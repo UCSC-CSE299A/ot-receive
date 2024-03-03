@@ -40,8 +40,7 @@ void udpGetPayload(const otMessage *aMessage, void* buffer) {
 }
 
 /**
- * Only handle messages sent by the `ot-send` UDP sender, which broadcast
- * packets at MLEID_MULTICAST with port 12345.
+ * Only handle messages sent by the `ot-send` UDP sender.
  *
  * Based on observation, the PEER IP and port corresponds to the sender,
  * while the SOCKET IP and port corresponds to the receiver.
