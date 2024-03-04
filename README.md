@@ -19,7 +19,20 @@ I(17666) OPENTHREAD:[N] Platform------: Received Packet Number 49
 
 Note that the `Packet Number` may vary depending on when you have created the UDP socket.
 
-Furthermore, the built-in LED will flash whenever a packet is received.
+## Changing the TX Power
+
+If you would like to change the 802.15.4 transmission power used by OpenThread, enter:
+
+```bash
+idf.py menuconfig
+```
+
+and navigate to:
+```
+CSE 299A OpenThread Sender → Set the 802.15.4 TX power used by OpenThread
+```
+
+to enter the TX Power (in dBm) that you would like to use.
 
 ## Enabling Automatic Start
 

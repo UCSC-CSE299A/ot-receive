@@ -70,6 +70,7 @@ void handleMessageError(otMessage *aMessage, otError error);
 void ot_task_worker(void *aContext);
 
 void checkConnection(otInstance *aInstance);
+void setTxPower();
 
 void udpInitReceiver(otUdpReceiver *receiver);
 

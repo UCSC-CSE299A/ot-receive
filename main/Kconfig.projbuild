@@ -7,4 +7,11 @@ menu "CSE 299A OpenThread Receiver"
             If enabled, the Openthread Device will create or connect to thread network with pre-configured
             network parameters automatically. Otherwise, user need to configure Thread via CLI command manually.
 
+    config TX_POWER
+      int 'Set the 802.15.4 TX power used by OpenThread'
+      range -24 20
+      default 20
+      help
+          Set the 802.15.4 transmission power (in dBm) for OpenThread.
+          The recommended TX power values are 20 dBm, 9 dBm, 0 dBm, and -25 dBm.
 endmenu
