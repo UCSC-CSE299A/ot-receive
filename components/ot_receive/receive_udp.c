@@ -39,17 +39,6 @@ void udpGetPayload(const otMessage *aMessage, void* buffer) {
   return;
 }
 
-void printPayload(char* payload, char* output, const otMessage *aMessage)
-{
-    emptyMemory(payload, PAYLOAD_SIZE);
-    emptyMemory(output, OUTPUT_STRING_SIZE);
-
-    udpGetPayload((const otMessage *) aMessage, payload);
-    sprintf(output, "Received %s", payload);
-    otLogNotePlat(output);
-    return;
-}
-
 /**
  * Only handle messages sent by the `ot-send` UDP sender.
  *
@@ -70,7 +59,13 @@ bool udpReceiveCallback(void *aContext,
 
     char payload[PAYLOAD_SIZE];
     char output[OUTPUT_STRING_SIZE];
-    printPayload(payload, output, aMessage);
+
+    emptyMemory(payload, PAYLOAD_SIZE);
+    emptyMemory(output, OUTPUT_STRING_SIZE);
+
+    udpGetPayload((const otMessage *) aMessage, payload);
+    sprintf(output, "Received %s", payload);
+    otLogNotePlat(output);
 
 #if CONFIG_LED_ENABLED
     setLed(&globalLed, OFF);
