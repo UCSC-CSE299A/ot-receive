@@ -40,6 +40,8 @@ void app_main(void)
     otUdpSocket aSocket;
     createReceiverSocket(getInstance(), UDP_SOCK_PORT, &aSockName, &aSocket);
 
+    setTxPower();
+
     otUdpReceiver receiver;
     udpInitReceiver(&receiver);
     udpCreateReceiver(getInstance(), &receiver);
