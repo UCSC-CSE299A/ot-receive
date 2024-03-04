@@ -13,7 +13,6 @@
 */
 
 #include "ot_receive.h"
-#include "led.h"
 
 inline otInstance* getInstance() {
   return esp_openthread_get_instance();
@@ -37,30 +36,20 @@ void app_main(void)
     xTaskCreate(ot_task_worker, "ot_cli_main", 10240,
                 xTaskGetCurrentTaskHandle(), 5, NULL);
 
-#if CONFIG_LED_ENABLED
-    initLed(&globalLed);
-    configureLed(&globalLed);
-#endif
-
     otSockAddr aSockName;
-    EmptyMemory(&aSockName, sizeof(otSockAddr));
-
     otUdpSocket aSocket;
-    EmptyMemory(&aSocket, sizeof(otUdpSocket));
-
     createReceiverSocket(getInstance(), UDP_SOCK_PORT, &aSockName, &aSocket);
 
     otUdpReceiver receiver;
     udpInitReceiver(&receiver);
     udpCreateReceiver(getInstance(), &receiver);
 
-#if CONFIG_LED_ENABLED
-    setLed(&globalLed, OFF);
+    // Keep "main" thread running on an infite loop,
+    // so the OpenThread worker thread will always be able
+    // to access the memory addresses of `aSocket` and `aSockName`.
+    //
     while (true) {
-      flashLed(&globalLed);
+      vTaskDelay(MAIN_WAIT_TIME);
     }
-    freeLed(&globalLed);
-#endif
-
     return;
 }

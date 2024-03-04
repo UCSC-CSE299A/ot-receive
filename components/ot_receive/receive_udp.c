@@ -1,5 +1,4 @@
 #include "ot_receive.h"
-#include "led.h"
 #include <string.h>
 #include <assert.h>
 
@@ -53,10 +52,6 @@ bool udpReceiveCallback(void *aContext,
   uint16_t receiverPort = aMessageInfo->mSockPort;
 
   if ((senderPort == UDP_DEST_PORT) && (receiverPort == UDP_SOCK_PORT)) {
-#if CONFIG_LED_ENABLED
-    setLed(&globalLed, ON);
-#endif
-
     char payload[PAYLOAD_SIZE];
     char output[OUTPUT_STRING_SIZE];
 
@@ -67,9 +62,6 @@ bool udpReceiveCallback(void *aContext,
     sprintf(output, "Received %s", payload);
     otLogNotePlat(output);
 
-#if CONFIG_LED_ENABLED
-    setLed(&globalLed, OFF);
-#endif
     return true;
   }
 

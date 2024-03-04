@@ -1,7 +1,5 @@
 {
   "C_Cpp.intelliSenseEngine": "default",
-  "C_Cpp.errorSquiggles": "disabled",
-  "idf.adapterTargetName": "esp32h2",
   "files.associations": {
     ".env*": "dotenv",
     "inttypes.h": "c",
@@ -95,6 +93,11 @@
     "string_view": "cpp",
     "unordered_map": "cpp",
     "initializer_list": "cpp",
-    "charconv": "c"
+    "charconv": "c",
+    "*.s": "c",
+    "coreasm.h": "c",
+    "chrono": "c",
+    "format": "c",
+    "span": "c"
   }
 }

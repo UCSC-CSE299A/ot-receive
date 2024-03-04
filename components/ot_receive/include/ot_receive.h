@@ -26,8 +26,6 @@
 #include "openthread/tasklet.h"
 #include "openthread/udp.h"
 
-#include "led.h"
-
 /**
  * Empties all memory for `size` bytes starting at memory address `pointer`.
  *
@@ -42,8 +40,7 @@
 
 #define MS_TO_TICKS(ms) ms / portTICK_PERIOD_MS
 #define DEFAULT_WAIT_TIME MS_TO_TICKS(100)
-#define PACKET_SEND_DELAY MS_TO_TICKS(4000) // 4 seconds
-#define RECEIVE_WAIT_TIME MS_TO_TICKS(1000) // 1 second
+#define MAIN_WAIT_TIME MS_TO_TICKS(5000) // 5 seconds
 
 #define OT_DISCONNECTED(role) (role == OT_DEVICE_ROLE_DISABLED) || (role == OT_DEVICE_ROLE_DETACHED)
 
