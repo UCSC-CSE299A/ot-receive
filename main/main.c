@@ -44,7 +44,7 @@ void app_main(void)
     udpInitReceiver(&receiver);
     udpCreateReceiver(getInstance(), &receiver);
 
-    // Keep "main" thread running on an infite loop,
+    // Keep "main" thread running on an infinite loop,
     // so the OpenThread worker thread will always be able
     // to access the memory addresses of `aSocket` and `aSockName`.
     //
