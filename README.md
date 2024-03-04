@@ -21,21 +21,6 @@ Note that the `Packet Number` may vary depending on when you have created the UD
 
 Furthermore, the built-in LED will flash whenever a packet is received.
 
-## Enabling the LED
-
-If you would like the built-in LED to flash whenever a packet is received, enter:
-
-```bash
-idf.py menuconfig
-```
-
-and navigate to:
-```
-CSE 299A OpenThread Sender → Enable the LED to flash whenever a packet is received
-```
-
-to turn on the LED.
-
 ## Enabling Automatic Start
 
 The `UART` port should be used in order to enable automatic start of recieving UDP packets without turning on the serial monitor. The `USB-Serial` can be used, but there is no guarantee that it may work without use of the serial monitor.
