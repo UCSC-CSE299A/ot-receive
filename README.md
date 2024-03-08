@@ -29,7 +29,7 @@ idf.py menuconfig
 
 and navigate to:
 ```
-CSE 299A OpenThread Sender → Set the 802.15.4 TX power used by OpenThread
+UCSC Thread-Ascon OpenThread Sender → Set the 802.15.4 TX power used by OpenThread
 ```
 
 to enter the TX Power (in dBm) that you would like to use.

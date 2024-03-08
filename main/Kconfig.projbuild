@@ -1,4 +1,4 @@
-menu "CSE 299A OpenThread Receiver"
+menu "UCSC Thread-Ascon OpenThread Receiver"
 
     config OPENTHREAD_AUTO_START
         bool 'Enable the automatic start mode.'
