@@ -502,11 +502,11 @@ CONFIG_PARTITION_TABLE_MD5=y
 # end of Partition Table
 
 #
-# CSE 299A OpenThread Receiver
+# UCSC Thread-Ascon OpenThread Receiver
 #
 CONFIG_OPENTHREAD_AUTO_START=y
 CONFIG_TX_POWER=20
-# end of CSE 299A OpenThread Receiver
+# end of UCSC Thread-Ascon OpenThread Receiver
 
 #
 # Iperf Configuration
