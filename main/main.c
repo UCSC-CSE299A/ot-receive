@@ -35,12 +35,11 @@ void app_main(void)
 
     xTaskCreate(ot_task_worker, "ot_cli_main", 10240,
                 xTaskGetCurrentTaskHandle(), 5, NULL);
+    setTxPower();
 
     otSockAddr aSockName;
     otUdpSocket aSocket;
     createReceiverSocket(getInstance(), UDP_SOCK_PORT, &aSockName, &aSocket);
-
-    setTxPower();
 
     otUdpReceiver receiver;
     udpInitReceiver(&receiver);
