@@ -20,5 +20,11 @@ void createReceiverSocket(otInstance *aInstance,
   aSockName->mPort = port;
 
   udpCreateSocket(aSocket, aInstance, aSockName);
+
+  // To ensure consistency with "ot-send", TX power
+  // is set IMMEDIATELY AFTER UDP socket is created.
+  //
+  setTxPower();
+
   return;
 }
