@@ -9,7 +9,7 @@ menu "UCSC Thread-Ascon OpenThread Receiver"
 
     config TX_POWER
       int 'Set the 802.15.4 TX power used by OpenThread'
-      range -127 128
+      range -128 127
       default 20
       help
           Set the 802.15.4 transmission power (in dBm) for OpenThread.
