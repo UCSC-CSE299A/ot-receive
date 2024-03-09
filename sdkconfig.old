@@ -505,7 +505,7 @@ CONFIG_PARTITION_TABLE_MD5=y
 # UCSC Thread-Ascon OpenThread Receiver
 #
 CONFIG_OPENTHREAD_AUTO_START=y
-CONFIG_TX_POWER=100
+CONFIG_TX_POWER=-128
 # end of UCSC Thread-Ascon OpenThread Receiver
 
 #
