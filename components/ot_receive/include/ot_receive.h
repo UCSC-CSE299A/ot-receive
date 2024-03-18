@@ -55,7 +55,7 @@
  * 2^32 - 1 = 4294967295 has 10 digits, and thus, the
  * string representation of the uint32_t will make up 10 bytes.
  *
- * Thus, the total payload isze is 14 + 10 = 24 bytes.
+ * Thus, the total payload size is 14 + 10 = 24 bytes.
 */
 #define PAYLOAD_SIZE 24
 
